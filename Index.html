@@ -321,7 +321,8 @@
         </div>
 
         <div class="btn-group animate-up" style="animation-delay: 1.2s;">
-            <a href="https://wa.me/50670767485" class="btn btn-primary" target="_blank">Movete ya</a>
+            <!-- <a href="https://wa.me/50670767485" class="btn btn-primary" target="_blank">Movete ya</a> -->
+             <a id="btnWhatsapp" href="#" class="btn btn-primary" target="_blank">Movete ya</a>
             <button class="btn btn-secondary" id="dualActionBtn">Solicitá tu cotización</button>
         </div>
     </div>
@@ -338,6 +339,13 @@
         <p style="font-size: 1.1em; opacity: 0.8; margin-bottom: 30px;">Respaldo, solidez e innovación en cada kilómetro.</p>
         <p style="font-size: 0.85em; opacity: 0.4;">© 2026 Grupo Financiero CAFSA. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        const numero = "50670767485";
+        const mensaje = "Hola, quiero más información sobre las opciones de financiamiento de Expomóvil 2026.";
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        document.getElementById("btnWhatsapp").href = url;
+    </script>
 
     <script>
         const slides = document.querySelectorAll('.slide');
