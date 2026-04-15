@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAFSA | Expomóvil 2026</title>
+    <style>
+        :root {
+            --cafsa-black: #000000;
+            --cafsa-dark-gray: #1a1a1a;
+            --cafsa-red: #e31d1a; 
+            --cafsa-gray: #8a8c8e; 
+            --cafsa-light-gray: #f9f9f9;
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition-main: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--cafsa-black);
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .site-header {
+            background-color: var(--cafsa-black);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .site-header img {
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up { opacity: 0; animation: revealUp 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        .slider-wrapper {
+            width: 100%;
+            background-color: var(--cafsa-black);
+            position: relative;
+            border-bottom: 4px solid var(--cafsa-black);
+        }
+
+        .slider-container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            position: relative;
+            aspect-ratio: 16 / 7;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                aspect-ratio: auto;
+                height: 55vh;
+            }
+            .slide img { object-fit: contain !important; }
+            .site-header img { height: 45px; }
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--cafsa-black);
+        }
+
+        .slide.active { opacity: 1; z-index: 1; }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px; height: 12px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-main);
+        }
+
+        .dot.active {
+            background: var(--cafsa-red);
+            transform: scale(1.3);
+            box-shadow: 0 0 15px var(--cafsa-red);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .main-title { 
+            text-align: center; font-size: 3.5em; text-transform: uppercase; 
+            font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;
+        }
+
+        .main-subtitle { 
+            text-align: center; font-size: 1.2em; color: var(--cafsa-gray); 
+            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 50px;
+        }
+
+        .intro-text { 
+            text-align: center; font-size: 1.25em; max-width: 850px; 
+            margin: 0 auto 70px; color: #444; line-height: 1.8;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 70px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-main);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--cafsa-red); transform: scaleX(0);
+            transition: var(--transition-main); transform-origin: left;
+        }
+
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card:hover::after { transform: scaleX(1); }
+
+        .card-header { color: var(--cafsa-red); font-size: 1.25em; font-weight: 800; text-transform: uppercase; margin-bottom: 25px; line-height: 1.3; }
+        
+        .card ul { list-style: none; margin-bottom: 20px; }
+        .card ul li { 
+            margin-bottom: 12px; display: flex; align-items: center; 
+            font-size: 1.05em; font-weight: 500; color: #333;
+        }
+        .card ul li::before { 
+            content: ""; width: 7px; height: 7px; background: var(--cafsa-red); 
+            border-radius: 50%; margin-right: 12px; flex-shrink: 0;
+        }
+
+        .card-footer-text { font-size: 0.95em; color: var(--cafsa-gray); margin-top: auto; padding-top: 15px; border-top: 1px solid #f5f5f5; }
+
+        .card-full-width {
+            grid-column: span 2;
+            background-color: var(--cafsa-light-gray);
+            border-color: #e0e0e0;
+        }
+        
+        .card-full-width ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .card-full-width ul li::before { content: "★"; background: transparent; color: var(--cafsa-red); width: auto; height: auto; font-size: 1.1em; }
+
+        .btn-group { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 20px; }
+        .btn { 
+            padding: 22px 40px; text-decoration: none; font-weight: 800; 
+            text-transform: uppercase; border-radius: 10px; transition: var(--transition-main);
+            min-width: 320px; text-align: center; font-size: 0.95em; letter-spacing: 1px;
+            cursor: pointer; border: none;
+        }
+        .btn-primary { background: var(--cafsa-red); color: var(--white); box-shadow: 0 10px 20px rgba(227, 29, 26, 0.2); }
+        .btn-secondary { background: var(--cafsa-black); color: var(--white); }
+        .btn:hover { transform: scale(1.03); filter: brightness(1.1); }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 850px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: revealUp 0.4s ease-out;
+        }
+        .modal-content img { width: 100%; display: block; }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: var(--cafsa-red);
+            color: white;
+            border: none;
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .site-footer {
+            background: var(--cafsa-black);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 6px solid var(--cafsa-red);
+        }
+
+        @media (max-width: 850px) {
+            .grid-cards { grid-template-columns: 1fr; }
+            .card-full-width { grid-column: span 1; }
+            .card-full-width ul { grid-template-columns: 1fr; }
+            .main-title { font-size: 2.2em; }
+            .container { padding: 40px 20px; }
+            .btn { width: 100%; min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <img src="Logo Cafsa NUEVO_B (1).png" alt="CAFSA Grupo Financiero">
+    </header>
+
+    <div class="slider-wrapper">
+        <div class="slider-container" id="slider">
+            <div class="slide active">
+                <img src="https://www.ford.cr/uploads/slides/11a47ac6337f4b3a79844f58ac77d6d98270b306.jpeg" alt="Ford Nuevo">
+            </div>
+            <div class="slide">
+                <img src="https://www.ford.cr/uploads/slides/a2be1b8a8c289835d7b226ba9d3e4b66013a353b.jpeg" alt="Ford Territory">
+            </div>
+            <div class="slide">
+                <img src="https://www.subaru.cr/uploads/slides/060f46a80f44d12f04f31540282eb1d77c2a1d61.jpeg" alt="Subaru">
+            </div>
+            <div class="slide">
+                <img src="HTML.jpg" alt="Información Adicional">
+            </div>
+            <div class="slider-dots" id="dots"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title animate-up">Expomóvil 2026</h1>
+        <p class="main-subtitle animate-up delay-1">Tu próximo destino empieza aquí</p>
+
+        <p class="intro-text animate-up delay-2">
+            En esta Expomóvil no solo estás buscando un vehículo. <br>
+            <strong>Estás buscando moverte con libertad.</strong> <br>
+            En CAFSA te damos el impulso financiero para que salgás manejando el carro que querés, con el respaldo de <strong>Financiera CAFSA y Grupo Purdy.</strong>
+        </p>
+
+        <div class="grid-cards">
+            <div class="card animate-up delay-3">
+                <h2 class="card-header">Soluciones hechas para vos</h2>
+                <ul>
+                    <li>Crédito prendario</li>
+                    <li>Leasing (operativo y financiero)</li>
+                    <li>Renting</li>
+                </ul>
+                <p class="card-footer-text">Opciones flexibles para que elijás la que mejor se adapta a tu estilo de vida.</p>
+            </div>
+
+            <div class="card animate-up" style="animation-delay: 0.8s;">
+                <h2 class="card-header">¿Querés hablar con un experto?</h2>
+                <p style="margin-bottom: 15px; font-weight: 600; font-size: 0.95em;">Estamos listos para ayudarte en el momento que lo necesités:</p>
+                <ul>
+                    <li>Chat en vivo</li>
+                    <li>Agendá tu cita en el stand</li>
+                    <li>Asesoría por WhatsApp</li>
+                </ul>
+            </div>
+
+            <div class="card card-full-width animate-up" style="animation-delay: 1s;">
+                <h2 class="card-header" style="text-align: center; margin-bottom: 30px;">Beneficios exclusivos Expomóvil 2026</h2>
+                <ul>
+                    <li>Modelos híbridos y eléctricos disponibles</li>
+                    <li>Condiciones especiales de feria</li>
+                    <li>Ofertas por tiempo limitado</li>
+                </ul>
+                <p class="card-footer-text" style="text-align: center;">Aprovechá estas condiciones únicas durante el evento.</p>
+            </div>
+        </div>
+
+        <div class="btn-group animate-up" style="animation-delay: 1.2s;">
+            <a href="https://wa.me/50670767485" class="btn btn-primary" target="_blank">Movete ya</a>
+            <button class="btn btn-secondary" id="dualActionBtn">Solicitá más información</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img src="HTML.jpg" alt="Información Expomóvil">
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <h2 style="font-size: 2em; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">FINANCIERA <span style="color:var(--cafsa-red);">CAFSA</span></h2>
+        <p style="font-size: 1.1em; opacity: 0.8; margin-bottom: 30px;">Respaldo, solidez e innovación en cada kilómetro.</p>
+        <p style="font-size: 0.85em; opacity: 0.4;">© 2026 Grupo Financiero CAFSA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+        let current = 0;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if(i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => { goTo(i); resetTimer(); });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function goTo(index) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = index;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        let timer = setInterval(() => goTo((current + 1) % slides.length), 5000);
+        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo((current + 1) % slides.length), 5000); }
+
+        const dualBtn = document.getElementById('dualActionBtn');
+        const modal = document.getElementById('imageModal');
+        const closeModal = document.getElementById('closeModal');
+        const sharepointLink = "https://financieracafsasa-my.sharepoint.com/:l:/g/personal/mhernande_cafsa_fi_cr/JABX5PYXy_zrQrw7Hstw42wzAXD_AAjX3cIggFRpbe7O5vU?nav=N2VlOGQxZGMtZDI2YS00MzI3LWIyYjAtMjU0NmRlMDE3NWEw";
+
+        dualBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            window.open(sharepointLink, '_blank');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
