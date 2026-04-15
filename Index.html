@@ -296,6 +296,18 @@
                 height: 30px;
             }
         }
+
+        /* normal text */
+        .card ul li a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+
+        .card ul li a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -341,13 +353,23 @@
                 <p class="card-footer-text">Opciones flexibles para que elijás la que mejor se adapta a tu estilo de vida.</p>
             </div>
 
-            <div class="card animate-up" style="animation-delay: 0.8s;">
+            <!-- <div class="card animate-up" style="animation-delay: 0.8s;">
                 <h2 class="card-header">¿Querés hablar con un experto?</h2>
                 <p style="margin-bottom: 15px; font-weight: 600; font-size: 0.95em;">Estamos listos para ayudarte en el momento que lo necesités:</p>
                 <ul>
                     <li>Chat en vivo</li>
                     <li>Agendá tu cita en el stand</li>
                     <li>Asesoría por WhatsApp</li>
+                </ul>
+            </div> -->
+
+            <div class="card animate-up" style="animation-delay: 0.8s;">
+                <h2 class="card-header">¿Querés hablar con un experto?</h2>
+                <p style="margin-bottom: 15px; font-weight: 600; font-size: 0.95em;">Estamos listos para ayudarte en el momento que lo necesités:</p>
+                <ul>
+                    <li><a id="linkChat" href="#" target="_blank">Chat en vivo</a></li>
+                    <li><a id="linkCita" href="#" target="_blank">Agendá tu cita en el stand</a></li>
+                    <li><a id="linkWhatsapp" href="#" target="_blank">Asesoría por WhatsApp</a></li>
                 </ul>
             </div>
 
@@ -389,11 +411,23 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
 
-    <script>
+    <!-- <script>
         const numero = "50670767485";
         const mensaje = "Hola, quiero más información sobre las opciones de financiamiento de Expomóvil 2026.";
         const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
         document.getElementById("btnWhatsapp").href = url;
+    </script> -->
+
+    <script>
+        const numero = "50670767485";
+        const mensaje = "Hola, quiero más información sobre las opciones de financiamiento de Expomóvil 2026.";
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+        document.getElementById("btnWhatsapp").href = url;
+
+        document.getElementById("linkChat").href = url;
+        document.getElementById("linkCita").href = url;
+        document.getElementById("linkWhatsapp").href = url;
     </script>
 
     <script>
