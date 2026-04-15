@@ -254,6 +254,48 @@
             .container { padding: 40px 20px; }
             .btn { width: 100%; min-width: auto; }
         }
+
+        /* css whatsapp web */
+        .whatsapp-float {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            z-index: 3000;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .whatsapp-float img {
+            width: 34px;
+            height: 34px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 56px;
+                height: 56px;
+                right: 16px;
+                bottom: 16px;
+            }
+
+            .whatsapp-float img {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -320,9 +362,11 @@
             </div>
         </div>
 
-        <div class="btn-group animate-up" style="animation-delay: 1.2s;">
-            <!-- <a href="https://wa.me/50670767485" class="btn btn-primary" target="_blank">Movete ya</a> -->
+        <!-- <div class="btn-group animate-up" style="animation-delay: 1.2s;">
              <a id="btnWhatsapp" href="#" class="btn btn-primary" target="_blank">Contactá a un asesor</a>
+            <button class="btn btn-secondary" id="dualActionBtn">Solicitá tu cotización</button>
+        </div> -->
+        <div class="btn-group animate-up" style="animation-delay: 1.2s;">
             <button class="btn btn-secondary" id="dualActionBtn">Solicitá tu cotización</button>
         </div>
     </div>
@@ -340,6 +384,10 @@
         <p style="font-size: 1.1em; opacity: 0.8; margin-bottom: 30px;">Respaldo, solidez e innovación en cada kilómetro.</p>
         <p style="font-size: 0.85em; opacity: 0.4;">© 2026 Grupo Financiero CAFSA. Todos los derechos reservados.</p>
     </footer>
+
+    <a id="btnWhatsapp" href="#" class="whatsapp-float" target="_blank" aria-label="Contactá a un asesor">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
 
     <script>
         const numero = "50670767485";
