@@ -116,7 +116,7 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 80px 20px 50px 20px;
         }
 
         .main-title { 
@@ -308,6 +308,23 @@
         .card ul li a:hover {
             text-decoration: underline;
         }
+
+        /* pdf consentimiento informado */
+        .pdf-link-wrap {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .pdf-link {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--cafsa-black);
+            text-decoration: underline;
+        }
+
+        .pdf-link:hover {
+            color: var(--cafsa-red);
+        }
     </style>
 </head>
 <body>
@@ -391,6 +408,13 @@
         <div class="btn-group animate-up" style="animation-delay: 1.2s;">
             <button class="btn btn-secondary" id="dualActionBtn">Solicitá tu cotización</button>
         </div>
+
+        <p class="pdf-link-wrap animate-up" style="animation-delay: 1.25s;">
+            <a href="ConsentimientoInformadoCAFSAEXPO2026.pdf" target="_blank" class="pdf-link">
+                Ver consentimiento informado
+            </a>
+        </p>
+
     </div>
 
     <div class="modal-overlay" id="imageModal">
